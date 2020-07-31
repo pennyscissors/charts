@@ -55,6 +55,9 @@ clients:
   nodeSelector: {}
   tolerations: []
 
+  image: rancher/pushprox-client:v0.1.0-rancher1-client
+  command: ["pushprox-client"]
+
 proxy:
   enabled: true
   # The port through which PushProx clients will communicate to the proxy
@@ -66,3 +69,6 @@ proxy:
   # Options to select a node to run a single proxy deployment on
   nodeSelector: {}
   tolerations: []
+
+  image: rancher/pushprox-proxy:v0.1.0-rancher1-proxy
+  command: ["pushprox-proxy"]
