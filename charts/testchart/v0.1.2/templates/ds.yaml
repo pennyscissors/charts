@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }} 
+spec:
+  selector:
+    matchLabels:
+      name: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        name: {{ .Chart.Name }}
+    spec:
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      restartPolicy: {{ .Values.restartPolicy }}
+      containers:
+      - name: test-container
+        image: {{ .Values.registry }}/{{ .Values.image }}:{{ .Values.tag }}

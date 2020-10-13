@@ -1,0 +1,4 @@
+image: hwchiu/netutils
+tag: latest
+registry: docker.io
+restartPolicy: Always
