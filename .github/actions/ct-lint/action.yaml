@@ -1,0 +1,88 @@
+# action.yml
+name: "Helm CT lint"
+description: "Lint charts using Helm's chart-testing CLI tool"
+inputs:
+  remote_name: # id of input
+    description: "remote"
+    required: true
+  remote_url:
+    description: "remote"
+    required: true
+  target_branch:
+    description: "remote"
+    required: true
+  ct_validate_maintainers:
+    description: "remote"
+    required: true
+  ct_print_config:
+    description: "remote"
+    required: true
+  ct_debug:
+    description: "remote"
+    required: true
+  ct_chart_dirs:
+    description: "remote"
+    required: true
+  ct_chart_repos:
+    description: "remote"
+    required: true
+
+    # default: "World"
+# outputs:
+#   time: # id of output
+#     description: "The time we greeted you"
+# runs:
+#   using: "docker"
+#   image: "quay.io/helmpack/chart-testing:latest"
+#   args:
+#     - bash -c "echo ${{ inputs.remote }}"
+#
+#
+# runs:
+#   using: "composite"
+#   steps:
+#     - shell: bash
+#       run: >
+#         echo ${{ inputs.remote }}
+
+#         git remote add --fetch --track master rancher-charts https://github.com/rancher/charts.git
+
+#         docker run -it quay.io/helmpack/chart-testing:latest
+
+#         ct version
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      run: >
+        echo "Adding ${{ inputs.remote_name }} remote and fetching ${{ inputs.target_branch }}"
+
+        git remote add ${{ inputs.remote_name }} ${{ inputs.remote_url }}
+        --fetch 
+        --track ${{ inputs.target_branch }}
+
+    - shell: bash
+      run: |
+        echo "Chart-testing tool version information:"
+        ct version
+
+    - shell: bash
+      run: >
+        ct lint
+        --remote ${{ inputs.remote_name }}
+        --target-branch ${{ inputs.target_branch }}
+        --validate-maintainers=${{ inputs.ct_validate_maintainers }}
+        --print-config=${{ inputs.ct_print_config }}
+        --debug=${{ inputs.ct_debug }}
+        --chart-repos ${{ inputs.ct_chart_repos }}
+        --chart-dirs ${{ inputs.ct_chart_dirs }}
+    # - shell: bash
+    #   run: |
+    #     echo ${{ inputs.remote_name }}
+    #     echo ${{ inputs.remote_url }}
+    #     echo ${{ inputs.target_branch }}
+    #     echo ${{ inputs.ct_validate_maintainers }}
+    #     echo ${{ inputs.ct_print_config }}
+    #     echo ${{ inputs.ct_debug }}
+    #     echo ${{ inputs.ct_chart_repos }}
+    #     echo ${{ inputs.ct_chart_dirs }}

@@ -1,0 +1,75 @@
+on: [push]
+
+jobs:
+  lint-charts:
+    name: Lint Charts
+    runs-on: ubuntu-latest
+    container:
+      image: quay.io/helmpack/chart-testing:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # Needed for ct lint to work as the default behavior is a shallow clone
+          fetch-depth: "0"
+      - name: lint charts
+        uses: ./.github/actions/ct-lint
+        with:
+          remote_name: rancher-charts
+          remote_url: https://github.com/rancher/charts.git
+          target_branch: master
+          ct_debug: false
+          ct_print_config: true
+          ct_validate_maintainers: false
+          ct_chart_dirs: $(find charts -type d -mindepth 1 -maxdepth 1 | paste -sd ',')
+          ct_chart_repos: "\
+            stable=https://charts.helm.sh/stable,\
+            incubator=https://charts.helm.sh/incubator"
+  # lint-charts-draft:
+  #   name: Lint charts
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: quay.io/helmpack/chart-testing:latest
+  #   env:
+  #     remote_name: rancher-charts
+  #     remote_url: https://github.com/rancher/charts.git
+  #     target_branch: master
+  #     ct_debug: false
+  #     ct_print_config: true
+  #     ct_validate_maintainers: false
+  #     ct_chart_dirs: find charts -type d -mindepth 1 -maxdepth 1 | paste -sd ','
+  #     ct_chart_repos: "\
+  #       stable=https://charts.helm.sh/stable,\
+  #       incubator=https://charts.helm.sh/incubator"
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #       with:
+  #         # Needed for ct lint to work as the default behavior is a shallow clone
+  #         fetch-depth: "0"
+  #     - name: Log ct version
+  #       run: ct version
+  #     - name: Add rancher-charts remote and fetch master
+  #       run: git remote add --fetch --track master rancher-charts https://github.com/rancher/charts.git
+  #     - name: ct lint charts
+  #       run: >
+  #         ct lint
+  #         --remote ${{ env.remote_name }}
+  #         --target-branch ${{ env.target_branch }}
+  #         --validate-maintainers=${{ env.ct_validate_maintainers }}
+  #         --print-config=${{ env.ct_print_config }}
+  #         --debug=${{ env.ct_debug }}
+  #         --chart-repos ${{ env.ct_chart_repos }}
+  #         --chart-dirs $(${{ env.ct_chart_dirs }})
+  # lint-charts-draft3:
+  #   name: Lint charts 3
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: quay.io/helmpack/chart-testing:latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: lint charts
+  #       uses: ./.github/actions/ct-lint
+  #       with:
+  #         remote: value-passed-in
