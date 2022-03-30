@@ -27,9 +27,9 @@ controller:
   name: application-controller
 
   image:
-    repository:  # argoproj/argocd
-    tag:  # v1.5.4
-    imagePullPolicy:  # IfNotPresent
+    repository: # argoproj/argocd
+    tag: # v1.5.4
+    imagePullPolicy: # IfNotPresent
 
   ## Argo controller commandline flags
   args:
@@ -56,7 +56,8 @@ controller:
   podLabels: {}
 
   ## Labels to set container specific security contexts
-  containerSecurityContext: {}
+  containerSecurityContext:
+    {}
     # capabilities:
     #   drop:
     #     - all
@@ -220,11 +221,11 @@ dex:
   priorityClassName: ""
 
   ## Labels to set container specific security contexts
-  containerSecurityContext: {}
+  containerSecurityContext:
+    {}
     # capabilities:
     #   drop:
     #     - all
-
 
   resources: {}
   #  limits:
@@ -269,11 +270,11 @@ redis:
   priorityClassName: ""
 
   ## Labels to set container specific security contexts
-  containerSecurityContext: {}
+  containerSecurityContext:
+    {}
     # capabilities:
     #   drop:
     #     - all
-
 
   resources: {}
   #  limits:
@@ -298,7 +299,7 @@ redis-ha:
   redis:
     masterGroupName: argocd
     config:
-      save: "\"\""
+      save: '""'
   haproxy:
     enabled: true
     metrics:
@@ -318,9 +319,9 @@ server:
     targetMemoryUtilizationPercentage: 50
 
   image:
-    repository:  # argoproj/argocd
-    tag:  # v1.5.4
-    imagePullPolicy:  # IfNotPresent
+    repository: # argoproj/argocd
+    tag: # v1.5.4
+    imagePullPolicy: # IfNotPresent
 
   ## Additional command line arguments to pass to argocd-server
   ##
@@ -377,7 +378,8 @@ server:
   priorityClassName: ""
 
   ## Labels to set container specific security contexts
-  containerSecurityContext: {}
+  containerSecurityContext:
+    {}
     # capabilities:
     #   drop:
     #     - all
@@ -468,7 +470,7 @@ server:
     #       name: secret-name
     #       key: sshPrivateKey
     #   - type: helm
-    #     url: https://kubernetes-charts.storage.googleapis.com
+    #     url: https://charts.helm.sh/stable
     #     name: stable
     #   - type: helm
     #     url: https://argoproj.github.io/argo-helm
@@ -592,9 +594,9 @@ repoServer:
     targetMemoryUtilizationPercentage: 50
 
   image:
-    repository:  # argoproj/argocd
-    tag:  # v1.5.4
-    imagePullPolicy:  # IfNotPresent
+    repository: # argoproj/argocd
+    tag: # v1.5.4
+    imagePullPolicy: # IfNotPresent
 
   ## Additional command line arguments to pass to argocd-repo-server
   ##
@@ -650,7 +652,8 @@ repoServer:
   priorityClassName: ""
 
   ## Labels to set container specific security contexts
-  containerSecurityContext: {}
+  containerSecurityContext:
+    {}
     # capabilities:
     #   drop:
     #     - all
@@ -706,24 +709,24 @@ repoServer:
   ## Use init containers to configure custom tooling
   ## https://argoproj.github.io/argo-cd/operator-manual/custom_tools/
   ## When using the volumes & volumeMounts section bellow, please comment out those above.
- #  volumes:
- #  - name: custom-tools
- #    emptyDir: {}
- #
- #  initContainers:
- #  - name: download-tools
- #    image: alpine:3.8
- #    command: [sh, -c]
- #    args:
- #      - wget -qO- https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz | tar -xvzf - &&
- #        mv linux-amd64/helm /custom-tools/
- #    volumeMounts:
- #      - mountPath: /custom-tools
- #        name: custom-tools
- #  volumeMounts:
- #  - mountPath: /usr/local/bin/helm
- #    name: custom-tools
- #    subPath: helm
+  #  volumes:
+  #  - name: custom-tools
+  #    emptyDir: {}
+  #
+  #  initContainers:
+  #  - name: download-tools
+  #    image: alpine:3.8
+  #    command: [sh, -c]
+  #    args:
+  #      - wget -qO- https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz | tar -xvzf - &&
+  #        mv linux-amd64/helm /custom-tools/
+  #    volumeMounts:
+  #      - mountPath: /custom-tools
+  #        name: custom-tools
+  #  volumeMounts:
+  #  - mountPath: /usr/local/bin/helm
+  #    name: custom-tools
+  #    subPath: helm
 
 ## Argo Configs
 configs:
@@ -810,10 +813,11 @@ configs:
     # Custom secrets. Useful for injecting SSO secrets into environment variables.
     # Ref: https://argoproj.github.io/argo-cd/operator-manual/sso/
     # Note that all values must be non-empty.
-    extra: {}
+    extra:
+      {}
       # LDAP_PASSWORD: "mypassword"
 
-  # Argo TLS Data.
+    # Argo TLS Data.
     argocdServerTlsConfig:
       {}
       # key:
