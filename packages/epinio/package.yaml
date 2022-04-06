@@ -1,0 +1,10 @@
+url: https://github.com/epinio/helm-charts.git
+commit: 2fa55f5c2a266b61c6a8e3872cdf1137991de9b1
+subdirectory: chart/epinio
+version: 100.0.0
+additionalCharts:
+  - workingDir: charts-crd
+    crdOptions:
+      templateDirectory: crd-template
+      crdDirectory: templates
+      addCRDValidationToMainChart: true
