@@ -40,3 +40,5 @@ rancher-webhook:
 - 1.0.5+up0.2.6-rc5
 system-upgrade-controller:
 - 100.0.3+up0.3.2
+rancher-alerting-drivers:
+- 100.0.3
