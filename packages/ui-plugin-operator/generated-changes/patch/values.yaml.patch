@@ -1,0 +1,15 @@
+--- charts-original/values.yaml
++++ charts/values.yaml
+@@ -64,4 +64,11 @@
+     # pspAnnotations: {}
+ 
+ debug: false
+-debugLevel: 0
++debugLevel: 4
++
++targetArray:
++  targets:
++    - name: "one"
++      value: 1
++    - name: "two"
++      value: 2

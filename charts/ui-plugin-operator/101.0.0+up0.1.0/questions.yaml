@@ -1,0 +1,7 @@
+questions:
+  - variable: replicaCount
+    default: 1
+    required: false
+    type: int
+    label: Replica Count 2
+    group: "Global Settings"
