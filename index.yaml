@@ -12071,9 +12071,9 @@ entries:
       catalog.cattle.io/release-name: ui-plugin-operator
     apiVersion: v1
     appVersion: 0.1.0
-    created: "2022-10-31T12:20:00.671044-07:00"
+    created: "2022-12-08T11:29:44.364954-08:00"
     description: A UI Plugin Operator Chart for plugin management in Rancher
-    digest: 7e830f01c5b3df30253c39d3b2e1fedef8270a1e9a89da8f18e27af605a60af3
+    digest: 3619ae9c75b5386e915a91a4f5178cfad681dce239b006ed8222a0a1eddbc36d
     keywords:
     - applications
     - infrastructure

@@ -3,5 +3,10 @@ questions:
     default: 1
     required: false
     type: int
-    label: Replica Count 2
+    label: Replica Count
     group: "Global Settings"
+  - variable: targetArray.targets[0].[name]
+    default: "mod"
+    label: Testing Label
+    type: string
+    group: "Other Settings"
